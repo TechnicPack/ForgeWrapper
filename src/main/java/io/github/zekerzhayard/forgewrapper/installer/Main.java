@@ -21,11 +21,12 @@ public class Main {
         String forgeFullVersion = mcVersion + "-" + argsList.get(argsList.indexOf("--fml.forgeVersion") + 1);
 
         Path librariesDir = getLibrariesDir().toPath();
-        Path binDir = Paths.get(System.getProperty("minecraft.applet.TargetDirectory") + File.separator + "bin");
+        Path binDir = Paths.get(argsList.get(argsList.indexOf("--gameDir") + 1) + File.separator + "bin");
         Path minecraftDir = librariesDir.resolve("net").resolve("minecraft").resolve("client");
         Path forgeDir = librariesDir.resolve("net").resolve("minecraftforge").resolve("forge").resolve(forgeFullVersion);
         if (getAdditionalLibraries(minecraftDir, forgeDir, mcVersion, forgeFullVersion, mcpFullVersion).anyMatch(path -> !Files.exists(path))) {
             System.out.println("Some extra libraries are missing! Run the installer to generate them now.");
+            System.out.println("Bin Dir is: " + binDir);
             URLClassLoader ucl = URLClassLoader.newInstance(new URL[] {
                 Main.class.getProtectionDomain().getCodeSource().getLocation(),
                 Launcher.class.getProtectionDomain().getCodeSource().getLocation(),
