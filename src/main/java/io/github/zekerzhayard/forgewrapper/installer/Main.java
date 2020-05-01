@@ -6,6 +6,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,6 +21,7 @@ public class Main {
         String forgeFullVersion = mcVersion + "-" + argsList.get(argsList.indexOf("--fml.forgeVersion") + 1);
 
         Path librariesDir = getLibrariesDir().toPath();
+        Path binDir = Paths.get(System.getProperty("minecraft.applet.TargetDirectory") + File.separator + "bin");
         Path minecraftDir = librariesDir.resolve("net").resolve("minecraft").resolve("client");
         Path forgeDir = librariesDir.resolve("net").resolve("minecraftforge").resolve("forge").resolve(forgeFullVersion);
         if (getAdditionalLibraries(minecraftDir, forgeDir, mcVersion, forgeFullVersion, mcpFullVersion).anyMatch(path -> !Files.exists(path))) {
@@ -27,7 +29,7 @@ public class Main {
             URLClassLoader ucl = URLClassLoader.newInstance(new URL[] {
                 Main.class.getProtectionDomain().getCodeSource().getLocation(),
                 Launcher.class.getProtectionDomain().getCodeSource().getLocation(),
-                forgeDir.resolve("forge-" + forgeFullVersion + "-installer.jar").toUri().toURL()
+                binDir.resolve("modpack.jar").toUri().toURL()
             }, getParentClassLoader());
 
             Class<?> installer = ucl.loadClass("io.github.zekerzhayard.forgewrapper.installer.Installer");
