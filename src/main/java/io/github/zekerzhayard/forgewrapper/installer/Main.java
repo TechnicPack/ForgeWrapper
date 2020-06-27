@@ -44,9 +44,9 @@ public class Main {
 
     public static File getLibrariesDir() {
         try {
-            File laucnher = new File(Launcher.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            File launcher = new File(Launcher.class.getProtectionDomain().getCodeSource().getLocation().toURI());
             //              /<version>      /modlauncher    /mods           /cpw            /libraries
-            return laucnher.getParentFile().getParentFile().getParentFile().getParentFile().getParentFile();
+            return launcher.getParentFile().getParentFile().getParentFile().getParentFile().getParentFile();
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

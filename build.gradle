@@ -5,7 +5,7 @@ apply plugin: "idea"
 
 sourceCompatibility = targetCompatibility = 1.8
 
-version = "1.4.1"
+version = "1.4.1-technic2"
 group = "io.github.zekerzhayard"
 archivesBaseName = rootProject.name
 
@@ -23,17 +23,6 @@ dependencies {
 
 jar {
     manifest.attributes(
-            "Main-Class": "io.github.zekerzhayard.forgewrapper.converter.Main"
+            "Main-Class": "io.github.zekerzhayard.forgewrapper.installer.Main"
     )
-}
-
-processResources {
-    inputs.property "version", project.version
-    from(sourceSets.main.resources.srcDirs) {
-        include "patches/net.minecraftforge.json"
-        expand "version": project.version
-    }
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "patches/net.minecraftforge.json"
-    }
 }
